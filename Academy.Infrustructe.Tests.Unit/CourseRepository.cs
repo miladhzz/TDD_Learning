@@ -1,6 +1,7 @@
 ﻿using Academy.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Academy.Infrustructe.Tests.Unit
 {
@@ -19,6 +20,16 @@ namespace Academy.Infrustructe.Tests.Unit
         public void Create(Course course)
         {
             Courses.Add(course);
-        }        
+        }
+
+        public List<Course> GetAll()
+        {
+            return Courses;
+        }
+
+        public Course GetBy(int id)
+        {
+            return Courses.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

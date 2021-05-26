@@ -7,19 +7,64 @@ namespace Academy.Infrustructe.Tests.Unit
 {
     public class CourseRepositoryTests
     {
+        private readonly CourseRepository _courseRepository;
+        private readonly CourseTestBuilder _courseBuilder;
+        public CourseRepositoryTests()
+        {
+            _courseRepository = new CourseRepository();
+            _courseBuilder = new CourseTestBuilder();
+
+        }
+
         [Fact]
-        public void Course_SholudAddNewToCourseList()
+        public void Sholud_AddNewToCourseList()
         {
             //arrang
-            var courseBuilder = new CourseTestBuilder();
-            var course = courseBuilder.Build();
-            var respository = new CourseRepository();
+            var course = _courseBuilder.Build();
 
             //act
-            respository.Create(course);
+            _courseRepository.Create(course);
 
             //assert
-            respository.Courses.Should().Contain(course);
+            _courseRepository.Courses.Should().Contain(course);
+        }
+
+        [Fact]
+        public void Should_ListContainListOfCourses()
+        {
+            //act
+            var courses = _courseRepository.GetAll();
+
+            //assert
+            courses.Should().HaveCountGreaterOrEqualTo(0);
+        }
+
+        [Fact]
+        public void Should_ReturnCourseBtId()
+        {
+            //arrange
+            const int id = 5;
+            var newCourse = _courseBuilder.WithId(id).Build();
+            _courseRepository.Create(newCourse);
+
+            //act
+            var actual = _courseRepository.GetBy(id);
+
+            //assert
+            actual.Should().Be(newCourse);
+        }
+
+        [Fact]
+        public void Should_ReturnNull_WhenIdNotExist()
+        {   
+            //arrange
+            const int id = 55;
+
+            //act
+            var actual = _courseRepository.GetBy(id);
+
+            //assert
+            actual.Should().BeNull();
         }
     }
 }
