@@ -30,6 +30,10 @@ namespace CourseTests.Builders
             return new Course(_id, _name, _price, _age);
         }
 
-
+        public CourseTestBuilder WithId(int id)
+        {
+            this._id = id;
+            return this;
+        }
     }
 }

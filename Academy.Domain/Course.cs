@@ -39,5 +39,15 @@ namespace Academy.Domain
         {
             Sections.Add(section);
         }
+
+        public override bool Equals(object obj)
+        {
+            var course = obj as Course;
+
+            if (course is null)
+                return false;
+
+            return this.Id == course.Id;
+        }
     }
 }

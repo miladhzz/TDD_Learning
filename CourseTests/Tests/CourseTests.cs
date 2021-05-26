@@ -72,9 +72,35 @@ namespace CourseTests.Tests
             course.Sections.Should().ContainEquivalentOf(section);
         }
 
-        //public void Dispose()
-        //{
+        [Fact]
+        public void Equal_SameObjectShouldBeEqual()
+        {
+            //arrange
+            var sameId = 1;
+            var course1 = _course.WithId(sameId).Build();
+            var course2 = _course.WithId(sameId).Build();
 
-        //}
+            //act
+            var result = course1.Equals(course2);
+
+            //assert
+            result.Should().BeTrue();
+
+        }
+
+        [Fact]
+        public void Equal_SameObjectShouldBeNotEqual()
+        {
+            //arrange
+            var course1 = _course.WithId(1).Build();
+            var course2 = _course.WithId(2).Build();
+
+            //act
+            var result = course1.Equals(course2);
+
+            //assert
+            result.Should().BeFalse();
+
+        }
     }
 }
