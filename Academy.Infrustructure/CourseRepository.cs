@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Academy.Infrustructe.Tests.Unit
+namespace Academy.Infrustructure
 {
     public class CourseRepository
     {
@@ -30,6 +30,12 @@ namespace Academy.Infrustructe.Tests.Unit
         public Course GetBy(int id)
         {
             return Courses.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Delete(int id)
+        {
+            var course = GetBy(id);
+            Courses.Remove(course);
         }
     }
 }

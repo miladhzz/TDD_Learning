@@ -1,3 +1,4 @@
+using Academy.Infrustructure;
 using CourseTests.Builders;
 using FluentAssertions;
 using System;
@@ -65,6 +66,22 @@ namespace Academy.Infrustructe.Tests.Unit
 
             //assert
             actual.Should().BeNull();
+        }
+
+        [Fact]
+        public void Should_DeleteCourseFromStore()
+        {
+            //arrange 
+            const int id = 5;
+            var course = _courseBuilder.WithId(id).Build();
+            _courseRepository.Create(course);
+
+            //act
+            _courseRepository.Delete(id);
+
+
+            //assert
+            _courseRepository.Courses.Should().NotContain(course);
         }
     }
 }
